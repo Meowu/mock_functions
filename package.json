@@ -1,0 +1,15 @@
+{
+  "name": "mock_function",
+  "version": "1.0.0",
+  "description": "Functions to mock datas to frontend dev without depending on backend.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mock",
+    "es6"
+  ],
+  "author": "Meowu",
+  "license": "MIT"
+}
