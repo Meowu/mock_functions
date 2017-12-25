@@ -11,6 +11,11 @@ export default {
     const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     return Array.from(Array(length), _ => letters[this.randomIndex(letters)]).join('')
   },
+  randomEmail() {
+    const host = '@qq.com,@163.com,@gmail.com,@outlook,@sina.com,@yahoo.com'
+    const index = this.randomIndex(host.split(','))
+    return this.randomLetters(4) + this.randomNumber(4) + host.split(',')[index]
+  },
   randomPhone(length) {
     // 随机生成一个手机号码，如果length > 1则生成一个length个号码组成的数组
     const prefix = [138, 136, 159, 151, 137, 187]
@@ -25,9 +30,9 @@ export default {
       nameArray = Array.from(Array(10), _ => this.randomLetters(5)) 
     }
     if (!len > 1) {
-      return name[this.randomIndex(nameArray)]
+      return nameArray[this.randomIndex(nameArray)]
     }
-    return Array.from(new Array(len), _ => name[this.randomIndex(nameArray)])
+    return Array.from(new Array(len), _ => nameArray[this.randomIndex(nameArray)])
   },
   randomName(len = 1, nameArray) {
     // 生成一个随机名字。如果长度大于一则生成名字数组，并且如果提供名字数组则在该数组取名字，否则取默认数组。
@@ -35,9 +40,9 @@ export default {
       nameArray =  ["王怡", "李慧", "叶嘉仪", "宋子文", "景桓", "赵武", "李达", "马旭"]
     }
     if (!len > 1) {
-      return name[this.randomIndex(nameArray)]
+      return nameArray[this.randomIndex(nameArray)]
     }
-    return Array.from(new Array(len), _ => name[this.randomIndex(nameArray)])
+    return Array.from(new Array(len), _ => nameArray[this.randomIndex(nameArray)])
   },
   randomIndex(len) {
     // 生成一个随机索引，如果len是数字则索引位于0~len-1之间，如果len是数组或者字符串则生成该数组或字符串长度以内的随机索引。
@@ -76,15 +81,22 @@ export default {
         real: this.sum * 0.9,
         status: self.randomValue(1, ['提现成功', '提现失败'])
       },
-      real_withdraw_sum: this.randomNumber(),
+      status: 1,
+      real_withdraw_sum: this.randomNumber(4),
+      refund: this.randomNumber(),
+      packet_sum: this.randomNumber(3),
+      packet_num: this.randomNumber(2),
       bank_account: this.randomValue(1, ['交通银行', '工商银行', '建设银行', '平安银行']),
       accept_account: this.randomValue(1, ['创业账户', '收益账户']),
       pay_type: this.randomValue(1, ['创业账户', '支付宝', '银联支付', '微信支付', '线下充值']),
       sold_type: this.randomValue(1, ['商城销售', '线下销售']),
+      sold_status: this.randomValue(1, ['已完成', '新订单', '未支付']),
       donate_shares: this.randomNumber(2),
       donate_points: this.randomNumber(4, 100),
       donate_status: this.randomValue(1, ['赠送失败', '已赠送']),
-      recharge_sum: this.randomValue(4, 100),
+      email: this.randomEmail(),
+      sex: this.randomValue(1, ['男', '女']),
+      recharge_sum: this.randomNumber(4, 100),
       total: this.randomArray('number', 5, 3),
       total_cash: this.randomArray('number', 5, 3),
     }
