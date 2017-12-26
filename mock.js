@@ -7,9 +7,15 @@ export default {
     }
     return 10 ** len + Math.floor(Math.random() * (10 ** length - 10 ** len))
   },
+  randomNumberArray(length = 4, byteLength = 6) {
+      return Array.from(new Array(length), _ => this.randomNumber(byteLength))
+  },
   randomLetters(length = 1) {
     const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
     return Array.from(Array(length), _ => letters[this.randomIndex(letters)]).join('')
+  },
+  randomLetterArray(length = 4, byteLength = 6) {
+    return Array.from(new Array(length), n => this.randomLetters(byteLength))
   },
   randomEmail() {
     const host = '@qq.com,@163.com,@gmail.com,@outlook,@sina.com,@yahoo.com'
@@ -18,16 +24,29 @@ export default {
   },
   randomPhone(length) {
     // 随机生成一个手机号码，如果length > 1则生成一个length个号码组成的数组
-    const prefix = [138, 136, 159, 151, 137, 187]
+    const prefix = [
+      138,
+      136,
+      159,
+      151,
+      137,
+      187
+    ]
     const randomPrefix = prefix[this.randomIndex(prefix)]
     if (length > 1) {
       return Array.from(Array(length), _ => '' + prefix[this.randomIndex(prefix)] + this.randomNumber(8))
     }
     return '' + randomPrefix + this.randomNumber(8)
   },
-  randomValue(len = 1, nameArray) {
+  randomValue(valueArray) {
     if (!nameArray) {
-      nameArray = Array.from(Array(10), _ => this.randomLetters(5)) 
+      nameArray = Array.from(Array(10), _ => this.randomLetters(5))
+    }
+    return nameArray[this.randomIndex(nameArray)]
+  },
+  randomValueArray(len = 1, nameArray) {
+    if (!nameArray) {
+      nameArray = Array.from(Array(10), _ => this.randomLetters(5))
     }
     if (!len > 1) {
       return nameArray[this.randomIndex(nameArray)]
@@ -37,7 +56,16 @@ export default {
   randomName(len = 1, nameArray) {
     // 生成一个随机名字。如果长度大于一则生成名字数组，并且如果提供名字数组则在该数组取名字，否则取默认数组。
     if (!nameArray) {
-      nameArray =  ["王怡", "李慧", "叶嘉仪", "宋子文", "景桓", "赵武", "李达", "马旭"]
+      nameArray = [
+        "王怡",
+        "李慧",
+        "叶嘉仪",
+        "宋子文",
+        "景桓",
+        "赵武",
+        "李达",
+        "马旭"
+      ]
     }
     if (!len > 1) {
       return nameArray[this.randomIndex(nameArray)]
@@ -50,13 +78,6 @@ export default {
       len = len.length
     }
     return Math.floor(Math.random() * len);
-  },
-  randomArray(type, length = 4, byteLength = 6) {
-    if (type === "letter") {
-      return Array.from(new Array(length), n => this.randomLetters(byteLength))
-    } else {
-      return Array.from(new Array(length), _ => this.randomNumber(byteLength))
-    }
   },
   randomObject() {
     const self = this
@@ -98,7 +119,7 @@ export default {
       sex: this.randomValue(1, ['男', '女']),
       recharge_sum: this.randomNumber(4, 100),
       total: this.randomArray('number', 5, 3),
-      total_cash: this.randomArray('number', 5, 3),
+      total_cash: this.randomArray('number', 5, 3)
     }
   }
 };
